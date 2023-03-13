@@ -1,8 +1,7 @@
 package com.asteroster.practiceform;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -10,17 +9,18 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
         Configuration.browser = "firefox";
         Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = true;
-        open("https://demoqa.com/automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        Configuration.baseUrl = "https://demoqa.com";
     }
     @Test
     void practiceFormTest () {
+        open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Фантомас");
         $("#lastName").setValue("Багровый");
         $("#userEmail").setValue("Some_email@email.com");
