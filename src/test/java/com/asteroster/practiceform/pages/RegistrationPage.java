@@ -1,6 +1,7 @@
 package com.asteroster.practiceform.pages;
 
 import com.asteroster.practiceform.pages.components.CalendarComponent;
+import com.asteroster.practiceform.pages.components.ModalResultsComponent;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -9,6 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
+    ModalResultsComponent modalResultsComponent = new ModalResultsComponent();
     SelenideElement
             firstName = $("#firstName"),
             lastname = $("#lastName"),
@@ -19,7 +21,11 @@ public class RegistrationPage {
             subject = $("#subjectsInput"),
             hobbie = $("#hobbiesWrapper"),
             uploadPicture = $("#uploadPicture"),
-            address = $("[placeholder='Current Address']");
+            address = $("[placeholder='Current Address']"),
+            state = $("#state"),
+            city = $("#city"),
+            submit = $("#submit"),
+            closeButton = $("#closeLargeModal");
     public  RegistrationPage openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
@@ -85,6 +91,44 @@ public class RegistrationPage {
 
     public RegistrationPage setCurrentAddress (String value) {
         address.setValue(value);
+
+        return this;
+    }
+
+    public RegistrationPage setState (String value) {
+        state.click();
+        $(byText(value)).click();
+
+        return this;
+    }
+
+    public RegistrationPage setCity (String value) {
+        city.click();
+        $(byText(value)).click();
+
+        return this;
+    }
+
+    public RegistrationPage pressSubmit() {
+        submit.click();
+
+        return this;
+    }
+
+    public RegistrationPage verifyModalAppears() {
+        modalResultsComponent.verifyModalAppears();
+
+        return this;
+    }
+
+    public RegistrationPage verifyResult (String key, String value) {
+        modalResultsComponent.verifyResult(key, value);
+
+        return this;
+    }
+
+    public RegistrationPage closeModal () {
+        closeButton.click();
 
         return this;
     }

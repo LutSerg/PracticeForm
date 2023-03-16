@@ -1,24 +1,11 @@
 package com.asteroster.practiceform;
 
 import com.asteroster.practiceform.pages.RegistrationPage;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
-public class PracticeFormTest {
+public class PracticeFormTest extends  TestBase{
 
     RegistrationPage registrationPage = new RegistrationPage();
-    @BeforeAll
-    static void setUp() {
-        Configuration.browser = "firefox";
-        Configuration.browserSize = "1920x1080";
-        Configuration.holdBrowserOpen = true;
-        Configuration.baseUrl = "https://demoqa.com";
-    }
+
     @Test
     void practiceFormTest () {
         String name = "Фантомас";
@@ -26,10 +13,15 @@ public class PracticeFormTest {
         String email = "fantom@bagroviy.ru";
         String gender = "Male";
         String number = "4415639874";
+        String day = "20";
+        String year = "1999";
+        String month = "August";
         String subject = "History";
         String hobbie = "Music";
         String picture = "screen_getting_started.png";
         String currentAddress = "some current address";
+        String state = "Uttar Pradesh";
+        String city = "Lucknow";
 
         registrationPage.openPage()
                 .setFirstName(name)
@@ -37,29 +29,23 @@ public class PracticeFormTest {
                 .setEmail(email)
                 .setGender(gender)
                 .setNumber(number)
-                .setDateOfBirth("20", "August", "1999")
+                .setDateOfBirth(day, month, year)
                 .setSubject(subject)
                 .setHobbie(hobbie)
                 .uploadPicture(picture)
-                .setCurrentAddress(currentAddress);
-
-        $("#state").click();
-        $(byText("Uttar Pradesh")).click();
-        $("#city").click();
-        $(byText("Lucknow")).click();
-        $("#submit").click();
-        $(".modal-header").shouldBe(visible)
-                .shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive")
-                .shouldHave(text("Фантомас Багровый"))
-                .shouldHave(text(email))
-                .shouldHave(text(gender))
-                .shouldHave(text(number))
-                .shouldHave(text("23 August,2001"))
-                .shouldHave(text("History"))
-                .shouldHave(text("Music"))
-                .shouldHave(text("Uttar Pradesh Lucknow"));
-        $("#closeLargeModal").click();
-
+                .setCurrentAddress(currentAddress)
+                .setState(state)
+                .setCity(city)
+                .pressSubmit()
+                .verifyModalAppears()
+                        .verifyResult("Student Name", name + " " + lastname)
+                        .verifyResult("Student Email", email)
+                        .verifyResult("Gender", gender)
+                        .verifyResult("Mobile", number)
+                        .verifyResult("Date of Birth", day + " " + month + "," +year)
+                        .verifyResult("Subjects", subject)
+                        .verifyResult("Hobbies", hobbie)
+                        .verifyResult("State and City", state + " " + city)
+                .closeModal();
     }
 }
