@@ -26,8 +26,14 @@ public class RegistrationPage {
             city = $("#city"),
             submit = $("#submit"),
             closeButton = $("#closeLargeModal");
-    public  RegistrationPage openPage() {
+
+    public RegistrationPage openPage() {
         open("/automation-practice-form");
+
+        return this;
+    }
+
+    public RegistrationPage removeBanner() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
@@ -64,45 +70,45 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setDateOfBirth (String  day, String month, String year) {
+    public RegistrationPage setDateOfBirth(String day, String month, String year) {
         dateOfBirth.click();
         calendarComponent.setDate(day, month, year);
 
         return this;
     }
 
-    public RegistrationPage setSubject (String value) {
+    public RegistrationPage setSubject(String value) {
         subject.setValue(value).pressEnter();
 
         return this;
     }
 
-    public RegistrationPage setHobbie (String value) {
+    public RegistrationPage setHobbie(String value) {
         hobbie.$(byText(value)).click();
 
         return this;
     }
 
-    public RegistrationPage uploadPicture (String value) {
+    public RegistrationPage uploadPicture(String value) {
         uploadPicture.uploadFromClasspath(value);
 
         return this;
     }
 
-    public RegistrationPage setCurrentAddress (String value) {
+    public RegistrationPage setCurrentAddress(String value) {
         address.setValue(value);
 
         return this;
     }
 
-    public RegistrationPage setState (String value) {
+    public RegistrationPage setState(String value) {
         state.click();
         $(byText(value)).click();
 
         return this;
     }
 
-    public RegistrationPage setCity (String value) {
+    public RegistrationPage setCity(String value) {
         city.click();
         $(byText(value)).click();
 
@@ -121,13 +127,13 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage verifyResult (String key, String value) {
+    public RegistrationPage verifyResult(String key, String value) {
         modalResultsComponent.verifyResult(key, value);
 
         return this;
     }
 
-    public RegistrationPage closeModal () {
+    public RegistrationPage closeModal() {
         closeButton.click();
 
         return this;
