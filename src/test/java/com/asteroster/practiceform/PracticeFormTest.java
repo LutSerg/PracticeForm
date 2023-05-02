@@ -1,15 +1,18 @@
 package com.asteroster.practiceform;
 
 import com.asteroster.practiceform.pages.RegistrationPage;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.asteroster.practiceform.testdata.RandomTestData.*;
+import static io.qameta.allure.Allure.step;
 
 public class PracticeFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
+    @DisplayName("Форма регистрации студентов. Тест в jenkins")
     void practiceFormTest() {
 
         registrationPage.openPage()
