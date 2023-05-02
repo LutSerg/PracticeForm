@@ -38,3 +38,9 @@ test {
     useJUnitPlatform()
     systemProperties(System.getProperties())
 }
+
+task practice_form(type: Test) {
+    useJUnitPlatform {
+        includeTags("practice_form")
+    }
+}

@@ -2,6 +2,7 @@ package com.asteroster.practiceform;
 
 import com.asteroster.practiceform.pages.RegistrationPage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.asteroster.practiceform.testdata.RandomTestData.*;
@@ -12,6 +13,7 @@ public class PracticeFormTest extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
+    @Tag("practice_form")
     @DisplayName("Форма регистрации студентов. Тест в jenkins")
     void practiceFormTest() {
 
