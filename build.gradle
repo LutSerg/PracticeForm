@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.10.0'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group 'com.asteroster'
@@ -14,7 +14,7 @@ allure {
         aspectjWeaver.set(true) //обработка аннотации @Step
         frameworks {
             junit5 { //название фреймворка
-                adapterVersion.set("2.19.0") //версия интеграции фреймворка и Allure
+                adapterVersion.set("2.21.0") //версия интеграции фреймворка и Allure
             }
         }
     }
@@ -28,10 +28,23 @@ dependencies {
     testImplementation (
             "com.codeborne:selenide:6.12.3",
             "org.junit.jupiter:junit-jupiter:5.9.2",
-            "org.slf4j:slf4j-simple:2.0.6",
+            "org.slf4j:slf4j-simple:2.0.7",
             "com.github.javafaker:javafaker:1.0.2",
-            'io.qameta.allure:allure-selenide:2.19.0'
+            'io.qameta.allure:allure-selenide:2.21.0',
+            "org.aspectj:aspectjweaver:1.9.19"
     )
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
 
 test {
@@ -42,5 +55,26 @@ test {
 task practice_form(type: Test) {
     useJUnitPlatform {
         includeTags("practice_form")
+    }
+}
+
+task simple_property(type: Test) {
+    useJUnitPlatform {
+        includeTags("simple_property")
+        systemProperties(System.getProperties())
+    }
+}
+
+task many_properties_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("many_properties")
+        systemProperties(System.getProperties())
+    }
+}
+
+task hello_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("hello")
+        systemProperties(System.getProperties())
     }
 }
